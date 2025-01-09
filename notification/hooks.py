@@ -140,10 +140,50 @@ app_license = "mit"
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",
-# 		"on_cancel": "method",
+# 		"on_cancel": "method",  
 # 		"on_trash": "method"
 # 	}
 # }
+
+# doc_events = {
+#     "Notification": {
+#         "on_update": "notification.custom_notification.on_save",
+#         "trigger_notifications": "notification.custom_notification.override_trigger_notifications"
+#     }
+# }
+
+scheduler_events = {
+    "cron": {
+        "* * * * *": [
+            "notification.custom_notification.process_notification"
+        ]
+    }
+}
+
+# scheduler_events = {
+#     "cron": {
+#         "0 * * * *": [  # Run at the start of every hour
+#             "notification.custom_notification.trigger_daily_alerts"
+#         ]
+#     }
+# }
+
+
+# override_doctype_class = {
+#     "Notification": "notification.custom_notification.CustomNotification"
+# }
+
+# from frappe.email.doctype.notification.notification import trigger_daily_alerts
+# from notification.custom_notification import trigger_daily_alerts as custom_trigger_daily_alerts
+
+# # Monkey-patch the method
+# trigger_daily_alerts = custom_trigger_daily_alerts
+
+# hooks.py
+# override_methods = {
+#     "frappe.email.doctype.notification.notification.trigger_daily_alerts": "notification.custom_notification.trigger_daily_alerts"
+# }
+
 
 # Scheduled Tasks
 # ---------------
@@ -164,6 +204,9 @@ app_license = "mit"
 # 	"monthly": [
 # 		"notification.tasks.monthly"
 # 	],
+#     "daily_long": [
+#         "notification.notification.notification.CustomNotification.process_scheduled_notifications"
+#     ]
 # }
 
 # Testing
