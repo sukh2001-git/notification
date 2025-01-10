@@ -43,6 +43,8 @@ function schedule_send_dialog(frm) {
             frm.set_value("delay_time", delay_time);
             d.hide();
             frm.save();
+
+            frappe.msgprint(__('Notification scheduled successfully'));
         },
     });
 
