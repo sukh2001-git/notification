@@ -11,7 +11,7 @@ def process_notification():
                 "delay_enabled": 1,
                 "notification_triggered": 0
             },
-            fields=["name", "delay_time"]
+            fields=["name", "delay_time", "custom_select_time"]
         )
         
         current_time = frappe.utils.now()
@@ -20,9 +20,9 @@ def process_notification():
         for notification in notifications:
             doc = frappe.get_doc("Notification", notification.name)
             
-            if doc.delay_time:
-                # Convert delay_time to string if it's a timedelta
-                delay_time_str = str(doc.delay_time) if isinstance(doc.delay_time, timedelta) else doc.delay_time
+            if doc.custom_select_time:
+                
+                delay_time_str = f"{doc.custom_select_time}:00"
                 
                 # Parse the times into datetime objects
                 try:
@@ -40,7 +40,7 @@ def process_notification():
                     frappe.log_error(f"Current time: {current_datetime}", "Debug")
                     frappe.log_error(f"Time difference: {time_diff} minutes", "Debug")
                     
-                    if time_diff <= 40 or current_minutes > configured_minutes:
+                    if time_diff <= 5 or current_minutes > configured_minutes:
                         frappe.log_error("Time condition met - triggering notification", "Debug")
                         trigger_daily_alerts()
                         
