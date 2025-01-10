@@ -15,7 +15,7 @@ def process_notification():
         )
         
         current_time = frappe.utils.now()
-        formatted_current_time = frappe.utils.format_time(current_time, 'HH:mm') + ':00'
+        formatted_current_time = frappe.utils.format_time(current_time, 'HH:mm:ss')
         
         for notification in notifications:
             doc = frappe.get_doc("Notification", notification.name)
