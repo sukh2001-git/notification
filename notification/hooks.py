@@ -163,6 +163,9 @@ app_include_js = "/assets/notification/js/notification.js"
 scheduler_events = {
     "hourly": [
             "notification.custom_notification.process_notification"
+        ],
+    "daily": [
+            "notification.custom_notification.reset_notification_triggers"
         ]
 }
 
