@@ -1,3 +1,15 @@
+frappe.ui.form.on('Notification', {
+    after_save: function(frm) {
+        if (frm.doc.notification_triggered === 1) {
+            frm.doc.notification_triggered = 0;
+            frappe.db.set_value('Notification', frm.doc.name, 'notification_triggered', 0, update_modified=false);
+        }
+    }
+});
+
+
+
+
 // frappe.ui.form.on('Notification', {
 
 //     refresh: function (frm) {

@@ -36,6 +36,11 @@ def process_notification():
             fields=["name", "custom_select_time"]
         )
         
+        frappe.log_error("notifications", notifications)
+        
+        if not notifications:
+            frappe.log_error("No notifications to process")
+        
         # Get current time in UTC
         current_time_utc = datetime.now(pytz.UTC)
         
